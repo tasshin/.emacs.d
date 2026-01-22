@@ -15,6 +15,12 @@ On 2 Apr 1992 in the journal Nature the discovery was reported that a giant anci
 
 -- [[http://www.eskimo.com/~seldon/dotemacs.el][Will Mengarini]]
 #+end_quote
+
+#+begin_quote
+"What is Emacs? Emacs is Freedom! Freedom to control how your software behave! Emacs is interconnectedness! All your tools can interact with each other as first class citizens! Emacs is eternal! We've been using Emacs since the 70's, and when we're all gerbil-humans living under AI rule in 2035, we'll still be using Emacs!"
+
+-- Elle
+#+end_quote
 *** On Literate Programming
 #+begin_quote
 Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do.
@@ -109,12 +115,43 @@ These functions identify what operating system is hosting Emacs, which can be ha
 #+END_SRC
 ** Graphical Features
 *** Theme
-Load spacemacs-light automatically on startup.
+Automatically switch between spacemacs-light and spacemacs-dark based on macOS system appearance.
 
 #+BEGIN_SRC emacs-lisp
   (use-package spacemacs-theme
-    :init
-    (load-theme 'spacemacs-light t))
+    :ensure t
+    :defer t)
+
+  (defun tasshin/macos-dark-mode-p ()
+    "Return t if macOS is in dark mode."
+    (and (is-mac-p)
+         (string= "Dark"
+                  (string-trim
+                   (shell-command-to-string
+                    "defaults read -g AppleInterfaceStyle 2>/dev/null")))))
+
+  (defun tasshin/apply-theme-from-system ()
+    "Load theme based on macOS system appearance."
+    (interactive)
+    (mapc #'disable-theme custom-enabled-themes)
+    (if (tasshin/macos-dark-mode-p)
+        (progn
+          (load-theme 'spacemacs-dark t)
+          (custom-theme-set-faces
+           'spacemacs-dark
+           '(org-block-begin-line ((t (:background "#1f2022"))))
+           '(org-block-end-line ((t (:background "#1f2022"))))))
+      (progn
+        (load-theme 'spacemacs-light t)
+        (custom-theme-set-faces
+         'spacemacs-light
+         '(org-block-begin-line ((t (:background "#fbf8ef"))))
+         '(org-block-end-line ((t (:background "#fbf8ef"))))))))
+
+  (add-hook 'after-init-hook #'tasshin/apply-theme-from-system)
+
+  (when (is-mac-p)
+    (add-hook 'focus-in-hook #'tasshin/apply-theme-from-system))
 #+END_SRC
 *** Font
 #+BEGIN_SRC emacs-lisp
@@ -1762,12 +1799,7 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
                         'org-block-begin-line
                         'org-block-end-line
                         'org-meta-line
-                        'org-document-info-keyword))))
-
-    (custom-theme-set-faces
-     'spacemacs-light
-     `(org-block-begin-line ((t (:background "#fbf8ef"))))
-     `(org-block-end-line ((t (:background "#fbf8ef"))))))
+                        'org-document-info-keyword)))))
 #+END_SRC
 *** Packages
 **** org-cliplink
@@ -2279,6 +2311,15 @@ From an appendix in Intro to Emacs Lisp.
 (use-package shift-number
   :bind (("M-+" . shift-number-up)
          ("M-_" . shift-number-down)))
+#+END_SRC
+** Em-dash
+#+BEGIN_SRC emacs-lisp
+(defun insert-em-dash ()
+  "Insert an em-dash (—) at point."
+  (interactive)
+  (insert "—"))
+
+(bind-key "H--" 'insert-em-dash)
 #+END_SRC
 ** Spell Checking (Flyspell)
 #+BEGIN_SRC emacs-lisp
