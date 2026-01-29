@@ -140,13 +140,30 @@ Automatically switch between spacemacs-light and spacemacs-dark based on macOS s
           (custom-theme-set-faces
            'spacemacs-dark
            '(org-block-begin-line ((t (:background "#1f2022"))))
-           '(org-block-end-line ((t (:background "#1f2022"))))))
+           '(org-block-end-line ((t (:background "#1f2022"))))
+           '(org-document-title ((t (:foreground "#b2b2b2" :weight bold :height 1.5))))
+           '(org-done ((t (:background "#293235" :foreground "#86dc2f" :strike-through t :weight bold))))
+           '(org-headline-done ((t (:foreground "#827591" :strike-through t))))
+           '(org-level-1 ((t (:foreground "#4f97d7" :weight bold :height 1.3))))
+           '(org-level-2 ((t (:foreground "#2d9574" :weight normal :height 1.2))))
+           '(org-level-3 ((t (:foreground "#67b11d" :weight normal :height 1.1))))
+           '(org-drawer ((t (:foreground "#5d4d7a" :height 0.9))))
+           '(org-special-keyword ((t (:foreground "#5d4d7a" :height 0.9))))))
       (progn
         (load-theme 'spacemacs-light t)
         (custom-theme-set-faces
          'spacemacs-light
          '(org-block-begin-line ((t (:background "#fbf8ef"))))
-         '(org-block-end-line ((t (:background "#fbf8ef"))))))))
+         '(org-block-end-line ((t (:background "#fbf8ef"))))
+         '(org-document-title ((t (:foreground "#171717" :weight bold :height 1.5))))
+         '(org-done ((t (:background "#E8E8E8" :foreground "#0E0E0E" :strike-through t :weight bold))))
+         '(org-headline-done ((t (:foreground "#171717" :strike-through t))))
+         '(org-level-1 ((t (:foreground "#090909" :weight bold :height 1.3))))
+         '(org-level-2 ((t (:foreground "#090909" :weight normal :height 1.2))))
+         '(org-level-3 ((t (:foreground "#090909" :weight normal :height 1.1))))
+         '(org-drawer ((t (:foreground "#AAAAAA" :height 0.9))))
+         '(org-special-keyword ((t (:foreground "#999999" :height 0.9)))))))
+    (tool-bar-mode -1))
 
   (add-hook 'after-init-hook #'tasshin/apply-theme-from-system)
 
@@ -1733,14 +1750,6 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
            ("C-c >" . org-time-stamp-inactive))
     :custom-face
     (variable-pitch ((t (:family "ETBembo"))))
-    (org-document-title ((t (:foreground "#171717" :weight bold :height 1.5))))
-    (org-done ((t (:background "#E8E8E8" :foreground "#0E0E0E" :strike-through t :weight bold))))
-    (org-headline-done ((t (:foreground "#171717" :strike-through t))))
-    (org-level-1 ((t (:foreground "#090909" :weight bold :height 1.3))))
-    (org-level-2 ((t (:foreground "#090909" :weight normal :height 1.2))))
-    (org-level-3 ((t (:foreground "#090909" :weight normal :height 1.1))))
-    (org-drawer ((t (:foreground "#AAAAAA" :height 0.9))))
-    (org-special-keyword ((t (:foreground "#999999" :height 0.9))))
     :init
     (setq default-major-mode 'org-mode
           org-directory "~/org/"
