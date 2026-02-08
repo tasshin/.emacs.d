@@ -1756,6 +1756,7 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
           org-agenda-files nil
           org-log-done t
           org-startup-indented t
+          org-hide-leading-stars t
           org-startup-truncated nil
           org-startup-with-inline-images t
           org-completion-use-ido t
