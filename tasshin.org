@@ -1819,11 +1819,12 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
   (use-package org-cliplink
     :bind ("C-x p i" . org-cliplink))
 #+END_SRC
-**** org-bullets
+**** org-superstar
 #+BEGIN_SRC emacs-lisp
-  (use-package org-bullets
+  (use-package org-superstar
     :init
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    (setq org-superstar-configure-like-org-bullets t)
+    (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
 #+END_SRC
 **** org-autosort
 I wanted to be able to add a sort property to files or subtrees and get automatic autosorting. A user of /r/orgmode/ delivered [[https://www.reddit.com/r/orgmode/comments/7gqsif/is_it_possible_to_auto_sort_a_file_or_subtree_by/][a solution]].
