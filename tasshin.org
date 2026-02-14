@@ -1833,7 +1833,8 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
 #+BEGIN_SRC emacs-lisp
   (use-package org-superstar
     :init
-    (setq org-superstar-configure-like-org-bullets t)
+    (setq org-superstar-configure-like-org-bullets t
+          org-superstar-remove-leading-stars t)
     (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
 #+END_SRC
 **** org-autosort
