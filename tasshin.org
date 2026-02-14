@@ -2340,7 +2340,7 @@ From an appendix in Intro to Emacs Lisp.
   (interactive)
   (insert "—"))
 
-(bind-key "H--" 'insert-em-dash)
+(bind-key "C-x 8 m" 'insert-em-dash)
 #+END_SRC
 ** Spell Checking (Flyspell)
 #+BEGIN_SRC emacs-lisp
