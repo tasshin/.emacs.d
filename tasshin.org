@@ -1808,6 +1808,12 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
               #'(lambda ()
                  (setq line-spacing 0.2) ;; Add more line padding for readability
                  (variable-pitch-mode 1) ;; All fonts with variable pitch.
+                 (local-set-key (kbd "\"")
+                                (lambda () (interactive)
+                                  (if (or (bolp)
+                                          (memq (char-before) '(?\s ?\t ?\n ?\( ?\[)))
+                                      (insert "\u201c")  ;; "
+                                    (insert "\u201d")))) ;; "
                  (mapc
                   (lambda (face) ;; Other fonts with fixed-pitch.
                     (set-face-attribute face nil :inherit 'fixed-pitch))
