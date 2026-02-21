@@ -173,7 +173,14 @@ When called interactively, always forces a reload."
              '(org-level-3 ((t (:foreground "#090909" :weight normal :height 1.1))))
              '(org-drawer ((t (:foreground "#AAAAAA" :height 0.9))))
              '(org-special-keyword ((t (:foreground "#999999" :height 0.9))))))
-          (tool-bar-mode -1)))))
+          (tool-bar-mode -1)
+          (dolist (buf (buffer-list))
+            (with-current-buffer buf
+              (when (derived-mode-p 'org-mode)
+                (when org-superstar-mode
+                  (org-superstar-mode -1)
+                  (org-superstar-mode 1)))))))))
+
 
   (add-hook 'after-init-hook #'tasshin/apply-theme-from-system)
 
