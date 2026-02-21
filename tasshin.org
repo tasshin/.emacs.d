@@ -2342,11 +2342,13 @@ From an appendix in Intro to Emacs Lisp.
 #+END_SRC
 ** Em-dash
 #+BEGIN_SRC emacs-lisp
-(defun insert-em-dash ()
+(defun insert-em-dash (&optional _arg)
   "Insert an em-dash (—) at point."
   (interactive)
   (insert "—"))
 
+(with-eval-after-load 'iso-transl
+  (define-key iso-transl-ctl-x-8-map "m" 'insert-em-dash))
 (bind-key "C-x 8 m" 'insert-em-dash)
 #+END_SRC
 ** Spell Checking (Flyspell)
