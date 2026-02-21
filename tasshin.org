@@ -177,15 +177,14 @@ When called interactively, always forces a reload."
           (dolist (buf (buffer-list))
             (with-current-buffer buf
               (when (derived-mode-p 'org-mode)
-                (when org-superstar-mode
-                  (org-superstar-mode -1)
-                  (org-superstar-mode 1)))))))))
+                (font-lock-flush)
+                (font-lock-ensure))))))))
 
 
   (add-hook 'after-init-hook #'tasshin/apply-theme-from-system)
 
   (when (is-mac-p)
-    (add-hook 'focus-in-hook #'tasshin/apply-theme-from-system))
+    (run-with-timer 60 600 #'tasshin/apply-theme-from-system))
 #+END_SRC
 *** Font
 #+BEGIN_SRC emacs-lisp
