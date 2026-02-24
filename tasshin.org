@@ -2365,7 +2365,6 @@ From an appendix in Intro to Emacs Lisp.
 
 (with-eval-after-load 'iso-transl
   (define-key iso-transl-ctl-x-8-map "m" 'insert-em-dash))
-(bind-key "C-x 8 m" 'insert-em-dash)
 #+END_SRC
 ** Spell Checking (Flyspell)
 #+BEGIN_SRC emacs-lisp
