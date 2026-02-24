@@ -1618,7 +1618,9 @@ See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
       (sp-local-pair "_" "_")
       (sp-local-pair "+" "+")
       (sp-local-pair "<" ">")
-      (sp-local-pair "[" "]"))
+      (sp-local-pair "[" "]")
+      (sp-local-pair "\u201c" "\u201d")
+      (sp-local-pair "\u2018" "\u2019"))
     (use-package rainbow-delimiters
       :hook (prog-mode . rainbow-delimiters-mode)))
 #+END_SRC
@@ -1818,14 +1820,16 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
                                 (lambda () (interactive)
                                   (if (or (bolp)
                                           (memq (char-before) '(?\s ?\t ?\n ?\( ?\[)))
-                                      (insert "\u201c")  ;; "
-                                    (insert "\u201d")))) ;; "
+                                      (progn (insert "\u201c\u201d")
+                                             (backward-char))
+                                    (insert "\u201d"))))
                  (local-set-key (kbd "'")
                                 (lambda () (interactive)
                                   (if (or (bolp)
                                           (memq (char-before) '(?\s ?\t ?\n ?\( ?\[)))
-                                      (insert "\u2018")  ;; '
-                                    (insert "\u2019")))) ;; '
+                                      (progn (insert "\u2018\u2019")
+                                             (backward-char))
+                                    (insert "\u2019"))))
                  (mapc
                   (lambda (face) ;; Other fonts with fixed-pitch.
                     (set-face-attribute face nil :inherit 'fixed-pitch))
